@@ -3,8 +3,8 @@ from persona import Persona
 
 class SistemaAcceso:
     def __init__(self):
-        self.__personas : dict[str, Persona]
-        self.__laboratorios : dict[str, Laboratorio]
+        self.__personas : dict[str, Persona] = {}
+        self.__laboratorios : dict[str, Laboratorio] = {}
 
 
     #OPERACIONES DE LABORATORIO
