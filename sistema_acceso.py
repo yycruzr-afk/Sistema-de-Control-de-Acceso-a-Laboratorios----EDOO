@@ -1,4 +1,4 @@
-from laboratorito import Laboratorio
+from laboratorio import Laboratorio
 from persona import Persona
 
 class SistemaAcceso:
@@ -96,4 +96,7 @@ class SistemaAcceso:
 
     def listar_personas(self) -> None:
         for i in self.__personas.values():
-            print(i)        
+            print(i)
+    def listar_codigos_laboratorios(self) -> None:
+        for codigo in self.__laboratorios.keys():
+            print(codigo)
