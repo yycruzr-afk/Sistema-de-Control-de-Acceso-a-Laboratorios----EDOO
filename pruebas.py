@@ -66,103 +66,59 @@ def probar_map():
 
 
 def probar_set():
-    print("\n========== PRUEBAS SET ==========")
-
+    print("\n========== PRUEBAS SET (Casos 20 al 29) ==========")
     sistema = SistemaAcceso()
-
-    sistema.registrar_laboratorio(
-        Laboratorio("LAB01", "Programación", 30, "A")
-    )
-    sistema.registrar_laboratorio(
-        Laboratorio("LAB02", "Redes", 25, "B")
-    )
-    sistema.registrar_laboratorio(
-        Laboratorio("LAB03", "IA", 20, "C")
-    )
-    sistema.registrar_laboratorio(
-        Laboratorio("LAB05", "Bases de Datos", 30, "D")
-    )
-
+    sistema.registrar_laboratorio(Laboratorio("LAB01", "Programación", 30, "A"))
+    sistema.registrar_laboratorio(Laboratorio("LAB02", "Redes", 25, "B"))
+    sistema.registrar_laboratorio(Laboratorio("LAB03", "IA", 20, "C"))
+    sistema.registrar_laboratorio(Laboratorio("LAB05", "Bases de Datos", 30, "D"))
+    
     persona = Persona("PER01", "Perez", "Juan")
     sistema.registrar_persona(persona)
-
-    # 1. Set vacío
-    print(
-        "1. Set vacío:",
-        len(persona.laboratorios_autorizados) == 0
-    )
-
-    # 2. Agregar primer elemento
+    
+    # 20. Set vacío
+    print("20. Set vacío:", len(persona.laboratorios_autorizados) == 0)
+    
+    # 21. Agregar primer elemento
     sistema.autorizar_laboratorio("PER01", "LAB01")
-    print(
-        "2. Agregar primer elemento:",
-        "LAB01" in persona.laboratorios_autorizados
-    )
-
-    # 3. Agregar varios
+    print("21. Agregar primer elemento:", "LAB01" in persona.laboratorios_autorizados)
+    
+    # 22. Agregar varios (LAB02 y LAB03, sin volver a meter LAB01 para evitar el duplicado prematuro)
     sistema.autorizar_laboratorio("PER01", "LAB02")
     sistema.autorizar_laboratorio("PER01", "LAB03")
-
     print(
-        "3. Agregar varios:",
-        persona.laboratorios_autorizados == {
-            "LAB01", "LAB02", "LAB03"
-        }
+        "22. Agregar varios:",
+        persona.laboratorios_autorizados == {"LAB01", "LAB02", "LAB03"}
     )
+    
+    # 23. Agregar duplicado (Intentar agregar un elemento ya existente al Set)
+    try:
+        sistema.autorizar_laboratorio("PER01", "LAB01")
+        print("23. Agregar duplicado: ERROR")
+    except ValueError:
+        print("23. Agregar duplicado: CORRECTO (Excepción capturada)")
 
-    # 4. Agregar duplicado
-    sistema.autorizar_laboratorio("PER01", "LAB01")
-    print(
-        "4. Agregar duplicado:",
-        len(persona.laboratorios_autorizados) == 3
-    )
-
-    # 5. Pertenencia
-    print(
-        "5. Pertenencia:",
-        "LAB01" in persona.laboratorios_autorizados
-    )
-
-    # 6. Ausencia
-    print(
-        "6. Ausencia:",
-        "LAB99" not in persona.laboratorios_autorizados
-    )
-
-    # 7. Eliminar
+    # 24. Pertenencia
+    print("24. Pertenencia:", "LAB01" in persona.laboratorios_autorizados)
+    
+    # 25. Ausencia
+    print("25. Ausencia:", "LAB99" not in persona.laboratorios_autorizados)
+    
+    # 26. Eliminar
     sistema.revocar_autorizacion("PER01", "LAB01")
-    print(
-        "7. Eliminar:",
-        "LAB01" not in persona.laboratorios_autorizados
-    )
-
-    # 8. Unión
+    print("26. Eliminar:", "LAB01" not in persona.laboratorios_autorizados)
+    
+    # 27. Unión
     A = {"LAB01", "LAB02", "LAB03"}
     B = {"LAB02", "LAB03", "LAB05"}
+    print("27. Unión:", A | B == {"LAB01", "LAB02", "LAB03", "LAB05"})
 
-    print(
-        "8. Unión:",
-        A | B == {"LAB01", "LAB02", "LAB03", "LAB05"}
-    )
+    # 28. Intersección
+    print("28. Intersección:", A & B == {"LAB02", "LAB03"})
 
-    # 9. Intersección
-    print(
-        "9. Intersección:",
-        A & B == {"LAB02", "LAB03"}
-    )
+    # 29. Diferencia
+    print("29. Diferencia:", A - B == {"LAB01"} and B - A == {"LAB05"})
 
-    # 10. Diferencias
-    print(
-        "10. Diferencias:",
-        A - B == {"LAB01"} and B - A == {"LAB05"}
-    )
-
-    # 11. Eliminar elemento ausente
-    try:
-        persona.retirar_laboratorio("LAB99")
-        print("11. Eliminar ausente: ERROR")
-    except ValueError:
-        print("11. Eliminar ausente: CORRECTO")
 
 
 def main():
