@@ -68,18 +68,17 @@ class SistemaAcceso:
 
     def buscar_persona(self, codigo: str) -> Persona | None:
         # Validación Sección 10: Clave vacía
-        if not isinstance(codigo, str) or not codigo.strip():
+        if not codigo or not codigo.strip():
             return None
 
         for i in self.__personas.keys():
             if i == codigo:
                 return self.__personas[i]
-
         return None
 
     def eliminar_persona(self, codigo: str) -> None:
         # Validación Sección 10: Clave vacía o inexistente
-        if not isinstance(codigo, str) or not codigo.strip():
+        if not codigo or not codigo.strip():
             raise ValueError("El código de persona a eliminar no puede estar vacío")
 
         if not self.existe_persona(codigo):
@@ -87,7 +86,10 @@ class SistemaAcceso:
 
         self.__personas.pop(codigo)
 
-    def existe_persona(self, codigo : str) -> bool:
+    def existe_persona(self, codigo: str) -> bool:
+        if not codigo or not codigo.strip():
+            return False
+
         for i in self.__personas.keys():
             if i == codigo:
                 return True
@@ -95,21 +97,27 @@ class SistemaAcceso:
         return False
 
 
-
     #OPERACIONES CONJUNTAS
 
-    def autorizar_laboratorio(self, codigoPersona : str, codigoLaboratorio : str) -> None:
+    def autorizar_laboratorio(self, codigoPersona: str, codigoLaboratorio: str) -> None:
+        # Validación Sección 10: Entradas vacías
+        if not codigoPersona or not codigoPersona.strip() or not codigoLaboratorio or not codigoLaboratorio.strip():
+            raise ValueError("Los códigos no pueden estar vacíos")
+
         if not self.existe_persona(codigoPersona) or not self.existe_laboratorio(codigoLaboratorio):
             raise ValueError("Los codigos enviado no estan registrados")
 
         self.buscar_persona(codigoPersona).agregar_laboratorio(codigoLaboratorio)
 
-    def revocar_autorizacion(self, codigoPersona : str, codigoLaboratorio : str) -> None:
+    def revocar_autorizacion(self, codigoPersona: str, codigoLaboratorio: str) -> None:
+        # Validación Sección 10: Entradas vacías
+        if not codigoPersona or not codigoPersona.strip() or not codigoLaboratorio or not codigoLaboratorio.strip():
+            raise ValueError("Los códigos no pueden estar vacíos")
+
         if not self.existe_persona(codigoPersona) or not self.existe_laboratorio(codigoLaboratorio):
-                    raise ValueError("Los codigos enviado no estan registrados")
+            raise ValueError("Los codigos enviado no estan registrados")
 
         self.buscar_persona(codigoPersona).retirar_laboratorio(codigoLaboratorio)
-
     def puede_acceder(self, codigoPersona : str, codigoLaboratorio : str) -> bool:
         if not self.existe_persona(codigoPersona) or not self.existe_laboratorio(codigoLaboratorio):
             raise ValueError("Los codigos enviado no estan registrados")

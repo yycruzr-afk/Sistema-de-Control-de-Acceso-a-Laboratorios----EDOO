@@ -11,6 +11,8 @@ class Persona:
 
     @codigo.setter
     def codigo(self, valor: str) -> None:
+        if not valor or not valor.strip():
+            raise ValueError("El código no puede estar vacío.")
         self.__codigo = valor
 
     @property
@@ -34,17 +36,31 @@ class Persona:
         return self.__laboratorios_autorizados
 
     def agregar_laboratorio(self, codigo_lab: str) -> None:
+        # Validación Sección 10: Clave o elemento vacío
+        if not codigo_lab or not codigo_lab.strip():
+            raise ValueError("El código de laboratorio no puede estar vacío.")
+
+        # Validación Sección 10: Intento de agregar un elemento duplicado al Set
+        if codigo_lab in self.__laboratorios_autorizados:
+            raise ValueError(f"El laboratorio '{codigo_lab}' ya se encuentra autorizado para {self.__codigo}.")
+
         self.__laboratorios_autorizados.add(codigo_lab)
 
     def retirar_laboratorio(self, codigo_lab: str) -> None:
+        if not codigo_lab or not codigo_lab.strip():
+            raise ValueError("El código de laboratorio no puede estar vacío.")
+
+        # Validación Sección 10: Eliminación de un elemento que no pertenece al Set
         if codigo_lab in self.__laboratorios_autorizados:
             self.__laboratorios_autorizados.remove(codigo_lab)
         else:
-            raise ValueError(f"Error: El laboratorio {codigo_lab} no pertenece a los accesos autorizados de {self.__codigo}.")
+            raise ValueError(f"Error: El laboratorio '{codigo_lab}' no pertenece a los accesos autorizados de {self.__codigo}.")
 
     def tiene_acceso(self, codigo_lab: str) -> bool:
+        if not codigo_lab or not codigo_lab.strip():
+            return False
         return codigo_lab in self.__laboratorios_autorizados
 
     def __str__(self) -> str:
-        labs = ", ".join(self.__laboratorios_autorizados) if self.__laboratorios_autorizados else "Ninguno"
+        labs = ", ".join(sorted(self.__laboratorios_autorizados)) if self.__laboratorios_autorizados else "Ninguno"
         return f"Persona[{self.__codigo}] {self.__apellidos}, {self.__nombres} | Autorizaciones: {{ {labs} }}"
