@@ -10,12 +10,23 @@ class SistemaAcceso:
     #OPERACIONES DE LABORATORIO
 
     def registrar_laboratorio(self, laboratorio : Laboratorio) -> None:
+        if laboratorio is None:
+            raise ValueError("El laboratorio no puede ser nulo")
+            
+        # Validación Sección 10: Clave vacía o inválida
+        if not laboratorio.codigo or not laboratorio.codigo.strip():
+            raise ValueError("El código de laboratorio no puede estar vacío o contener solo espacios")
+        
+        
         if self.existe_laboratorio(laboratorio.codigo):
             raise ValueError("El codigo de laboratorio ingresado ya existe")
 
         self.__laboratorios[laboratorio.codigo] = laboratorio
 
     def buscar_laboratorio(self, codigo : str) -> Laboratorio | None:
+        if not codigo or not codigo.strip():
+            return None
+        
         for i in self.__laboratorios.keys():
             if i == codigo:
                 return self.__laboratorios[i]
@@ -23,6 +34,10 @@ class SistemaAcceso:
         return None
 
     def eliminar_laboratorio(self, codigo : str) -> None:
+        # Validación Sección 10: Clave vacía o inexistente
+        if not codigo or not codigo.strip():
+            raise ValueError("El código de laboratorio a eliminar no puede estar vacío")
+
         if not self.existe_laboratorio(codigo):
             raise ValueError("El codigo de laboratorio no existe")
 
@@ -39,19 +54,34 @@ class SistemaAcceso:
     #OPERACIONES DE PERSONAS
 
     def registrar_persona(self, persona : Persona) -> None:
+        if persona is None:
+            raise ValueError("La persona no puede ser nula")
+
+        # Validación Sección 10: Clave vacía o inválida
+        if not persona.codigo or not persona.codigo.strip():
+            raise ValueError("El código de persona no puede estar vacío o contener solo espacios")
+
         if self.existe_persona(persona.codigo):
             raise ValueError("Ya existe el codigo de la persona a registrar")
 
         self.__personas[persona.codigo] = persona
 
     def buscar_persona(self, codigo: str) -> Persona | None:
+        # Validación Sección 10: Clave vacía
+        if not isinstance(codigo, str) or not codigo.strip():
+            return None
+
         for i in self.__personas.keys():
             if i == codigo:
                 return self.__personas[i]
 
         return None
 
-    def eliminar_persona(self, codigo : str) -> None:
+    def eliminar_persona(self, codigo: str) -> None:
+        # Validación Sección 10: Clave vacía o inexistente
+        if not isinstance(codigo, str) or not codigo.strip():
+            raise ValueError("El código de persona a eliminar no puede estar vacío")
+
         if not self.existe_persona(codigo):
             raise ValueError("El codigo de persona no existe")
 
