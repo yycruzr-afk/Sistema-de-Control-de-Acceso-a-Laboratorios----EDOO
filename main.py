@@ -386,6 +386,9 @@ def mostrar_menu() -> None:
 def main() -> None:
     sistema = SistemaAcceso()
     registrar_datos_iniciales(sistema)
+    demostracion_map(sistema)
+    demostracion_set(sistema)
+    demostracion_frecuencia()
     while True:
         mostrar_menu()
         opcion = leer_entero("\nSeleccione una opcion: ")
