@@ -13,7 +13,6 @@ class SistemaAcceso:
         if laboratorio is None:
             raise ValueError("El laboratorio no puede ser nulo")
             
-        # Validación Sección 10: Clave vacía o inválida
         if not laboratorio.codigo or not laboratorio.codigo.strip():
             raise ValueError("El código de laboratorio no puede estar vacío o contener solo espacios")
         
@@ -27,9 +26,8 @@ class SistemaAcceso:
         if not codigo or not codigo.strip():
             return None
         
-        for i in self.__laboratorios.keys():
-            if i == codigo:
-                return self.__laboratorios[i]
+        if self.existe_laboratorio(codigo):
+            return self.__laboratorios[codigo]
 
         return None
 
@@ -44,10 +42,9 @@ class SistemaAcceso:
         self.__laboratorios.pop(codigo)
 
     def existe_laboratorio(self, codigo: str) -> bool:
-            for i in self.__laboratorios.keys():
-                if codigo == i:
-                    return True
-    
+        if codigo in self.__laboratorios.keys():
+            return True
+        else:
             return False
 
 
@@ -71,9 +68,9 @@ class SistemaAcceso:
         if not codigo or not codigo.strip():
             return None
 
-        for i in self.__personas.keys():
-            if i == codigo:
-                return self.__personas[i]
+        if self.existe_persona(codigo):
+            return self.__personas[codigo]
+        
         return None
 
     def eliminar_persona(self, codigo: str) -> None:
@@ -90,9 +87,8 @@ class SistemaAcceso:
         if not codigo or not codigo.strip():
             return False
 
-        for i in self.__personas.keys():
-            if i == codigo:
-                return True
+        if codigo in self.__personas.keys():
+            return self.__personas[codigo]
 
         return False
 
@@ -118,6 +114,7 @@ class SistemaAcceso:
             raise ValueError("Los codigos enviado no estan registrados")
 
         self.buscar_persona(codigoPersona).retirar_laboratorio(codigoLaboratorio)
+    
     def puede_acceder(self, codigoPersona : str, codigoLaboratorio : str) -> bool:
         if not self.existe_persona(codigoPersona) or not self.existe_laboratorio(codigoLaboratorio):
             raise ValueError("Los codigos enviado no estan registrados")
@@ -135,6 +132,7 @@ class SistemaAcceso:
     def listar_personas(self) -> None:
         for i in self.__personas.values():
             print(i)
+    
     def listar_codigos_laboratorios(self) -> None:
         for codigo in self.__laboratorios.keys():
             print(codigo)
