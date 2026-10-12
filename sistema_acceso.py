@@ -13,7 +13,7 @@ class SistemaAcceso:
         if laboratorio is None:
             raise ValueError("El laboratorio no puede ser nulo")
             
-        # Validación Sección 10: Clave vacía o inválida
+
         if not laboratorio.codigo or not laboratorio.codigo.strip():
             raise ValueError("El código de laboratorio no puede estar vacío o contener solo espacios")
         
@@ -34,7 +34,7 @@ class SistemaAcceso:
         return None
 
     def eliminar_laboratorio(self, codigo : str) -> None:
-        # Validación Sección 10: Clave vacía o inexistente
+
         if not codigo or not codigo.strip():
             raise ValueError("El código de laboratorio a eliminar no puede estar vacío")
 
@@ -57,7 +57,6 @@ class SistemaAcceso:
         if persona is None:
             raise ValueError("La persona no puede ser nula")
 
-        # Validación Sección 10: Clave vacía o inválida
         if not persona.codigo or not persona.codigo.strip():
             raise ValueError("El código de persona no puede estar vacío o contener solo espacios")
 
@@ -67,7 +66,7 @@ class SistemaAcceso:
         self.__personas[persona.codigo] = persona
 
     def buscar_persona(self, codigo: str) -> Persona | None:
-        # Validación Sección 10: Clave vacía
+
         if not codigo or not codigo.strip():
             return None
 
@@ -77,7 +76,7 @@ class SistemaAcceso:
         return None
 
     def eliminar_persona(self, codigo: str) -> None:
-        # Validación Sección 10: Clave vacía o inexistente
+        
         if not codigo or not codigo.strip():
             raise ValueError("El código de persona a eliminar no puede estar vacío")
 
@@ -100,7 +99,7 @@ class SistemaAcceso:
     #OPERACIONES CONJUNTAS
 
     def autorizar_laboratorio(self, codigoPersona: str, codigoLaboratorio: str) -> None:
-        # Validación Sección 10: Entradas vacías
+
         if not codigoPersona or not codigoPersona.strip() or not codigoLaboratorio or not codigoLaboratorio.strip():
             raise ValueError("Los códigos no pueden estar vacíos")
 
@@ -110,7 +109,7 @@ class SistemaAcceso:
         self.buscar_persona(codigoPersona).agregar_laboratorio(codigoLaboratorio)
 
     def revocar_autorizacion(self, codigoPersona: str, codigoLaboratorio: str) -> None:
-        # Validación Sección 10: Entradas vacías
+
         if not codigoPersona or not codigoPersona.strip() or not codigoLaboratorio or not codigoLaboratorio.strip():
             raise ValueError("Los códigos no pueden estar vacíos")
 

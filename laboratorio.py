@@ -31,7 +31,7 @@ class Laboratorio:
 
     @capacidad.setter
     def capacidad(self, valor: int) -> None:
-        # [SECCIÓN 10] Validación de datos numéricos
+
         if valor <= 0:
             raise ValueError("La capacidad debe ser un entero mayor a 0.")
         self.__capacidad = valor

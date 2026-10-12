@@ -36,11 +36,11 @@ class Persona:
         return self.__laboratorios_autorizados
 
     def agregar_laboratorio(self, codigo_lab: str) -> None:
-        # Validación Sección 10: Clave o elemento vacío
+
         if not codigo_lab or not codigo_lab.strip():
             raise ValueError("El código de laboratorio no puede estar vacío.")
 
-        # Validación Sección 10: Intento de agregar un elemento duplicado al Set
+
         if codigo_lab in self.__laboratorios_autorizados:
             raise ValueError(f"El laboratorio '{codigo_lab}' ya se encuentra autorizado para {self.__codigo}.")
 
@@ -50,7 +50,7 @@ class Persona:
         if not codigo_lab or not codigo_lab.strip():
             raise ValueError("El código de laboratorio no puede estar vacío.")
 
-        # Validación Sección 10: Eliminación de un elemento que no pertenece al Set
+
         if codigo_lab in self.__laboratorios_autorizados:
             self.__laboratorios_autorizados.remove(codigo_lab)
         else:
