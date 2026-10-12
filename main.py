@@ -157,20 +157,15 @@ def demostracion_set(sistema: SistemaAcceso) -> None:
     if not persona_a.tiene_acceso("LAB05"):
         print("LAB05 no pertenece al conjunto de autorizaciones de P001.")
 
-
     print("\n7. Agregar un elemento duplicado:")
     print("Autorizaciones antes:", persona_a.laboratorios_autorizados)
-
     try:
         persona_a.agregar_laboratorio("LAB01")
         print("LAB01 agregado correctamente.")
     except ValueError as error:
         print("No se pudo agregar el elemento:", error)
-
     print("Autorizaciones después:", persona_a.laboratorios_autorizados)
 
-
-    
     print("\n8. Eliminar un elemento inexistente:")
     print("Autorizaciones actuales:", persona_a.laboratorios_autorizados)
     try:
@@ -180,14 +175,12 @@ def demostracion_set(sistema: SistemaAcceso) -> None:
         print("No se pudo eliminar el elemento:", error)
     print("Autorizaciones después:", persona_a.laboratorios_autorizados)
 
-
     print("\n9. INTERPRETACION DE LA INTERSECCION")
     print("-" * 60)
     print(
         "Los elementos de la interseccion representan los laboratorios "
         "a los que ambas personas tienen autorizacion."
     )
-
 
 def demostracion_frecuencia() -> None:
     print("\n" + "=" * 60)
