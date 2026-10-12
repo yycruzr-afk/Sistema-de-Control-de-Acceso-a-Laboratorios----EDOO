@@ -157,22 +157,29 @@ def demostracion_set(sistema: SistemaAcceso) -> None:
     if not persona_a.tiene_acceso("LAB05"):
         print("LAB05 no pertenece al conjunto de autorizaciones de P001.")
 
-    print("\n7. INTENTO DE AGREGAR UN DUPLICADO")
-    print("-" * 60)
-    print("ANTES:")
-    print(persona_a.laboratorios_autorizados)
-    persona_a.agregar_laboratorio("LAB01")
-    print("DESPUES:")
-    print(persona_a.laboratorios_autorizados)
-    print("El elemento no se duplica porque el Set trabaja con elementos unicos.")
 
-    print("\n8. ELIMINACION DE UN ELEMENTO")
-    print("-" * 60)
-    print("ANTES:")
-    print(persona_a.laboratorios_autorizados)
-    persona_a.retirar_laboratorio("LAB03")
-    print("DESPUES:")
-    print(persona_a.laboratorios_autorizados)
+    print("\n7. Agregar un elemento duplicado:")
+    print("Autorizaciones antes:", persona_a.laboratorios_autorizados)
+
+    try:
+        persona_a.agregar_laboratorio("LAB01")
+        print("LAB01 agregado correctamente.")
+    except ValueError as error:
+        print("No se pudo agregar el elemento:", error)
+
+    print("Autorizaciones después:", persona_a.laboratorios_autorizados)
+
+
+    
+    print("\n8. Eliminar un elemento inexistente:")
+    print("Autorizaciones actuales:", persona_a.laboratorios_autorizados)
+    try:
+        persona_a.retirar_laboratorio("LAB99")
+        print("LAB99 eliminado correctamente.")
+    except ValueError as error:
+        print("No se pudo eliminar el elemento:", error)
+    print("Autorizaciones después:", persona_a.laboratorios_autorizados)
+
 
     print("\n9. INTERPRETACION DE LA INTERSECCION")
     print("-" * 60)
