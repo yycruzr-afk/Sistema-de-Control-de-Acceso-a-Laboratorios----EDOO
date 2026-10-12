@@ -157,22 +157,23 @@ def demostracion_set(sistema: SistemaAcceso) -> None:
     if not persona_a.tiene_acceso("LAB05"):
         print("LAB05 no pertenece al conjunto de autorizaciones de P001.")
 
-    print("\n7. INTENTO DE AGREGAR UN DUPLICADO")
-    print("-" * 60)
-    print("ANTES:")
-    print(persona_a.laboratorios_autorizados)
-    persona_a.agregar_laboratorio("LAB01")
-    print("DESPUES:")
-    print(persona_a.laboratorios_autorizados)
-    print("El elemento no se duplica porque el Set trabaja con elementos unicos.")
+    print("\n7. Agregar un elemento duplicado:")
+    print("Autorizaciones antes:", persona_a.laboratorios_autorizados)
+    try:
+        persona_a.agregar_laboratorio("LAB01")
+        print("LAB01 agregado correctamente.")
+    except ValueError as error:
+        print("No se pudo agregar el elemento:", error)
+    print("Autorizaciones después:", persona_a.laboratorios_autorizados)
 
-    print("\n8. ELIMINACION DE UN ELEMENTO")
-    print("-" * 60)
-    print("ANTES:")
-    print(persona_a.laboratorios_autorizados)
-    persona_a.retirar_laboratorio("LAB03")
-    print("DESPUES:")
-    print(persona_a.laboratorios_autorizados)
+    print("\n8. Eliminar un elemento inexistente:")
+    print("Autorizaciones actuales:", persona_a.laboratorios_autorizados)
+    try:
+        persona_a.retirar_laboratorio("LAB99")
+        print("LAB99 eliminado correctamente.")
+    except ValueError as error:
+        print("No se pudo eliminar el elemento:", error)
+    print("Autorizaciones después:", persona_a.laboratorios_autorizados)
 
     print("\n9. INTERPRETACION DE LA INTERSECCION")
     print("-" * 60)
@@ -180,7 +181,6 @@ def demostracion_set(sistema: SistemaAcceso) -> None:
         "Los elementos de la interseccion representan los laboratorios "
         "a los que ambas personas tienen autorizacion."
     )
-
 
 def demostracion_frecuencia() -> None:
     print("\n" + "=" * 60)
@@ -386,6 +386,9 @@ def mostrar_menu() -> None:
 def main() -> None:
     sistema = SistemaAcceso()
     registrar_datos_iniciales(sistema)
+    demostracion_map(sistema)
+    demostracion_set(sistema)
+    demostracion_frecuencia()
     while True:
         mostrar_menu()
         opcion = leer_entero("\nSeleccione una opcion: ")
